@@ -10,11 +10,16 @@ var AppView = Backbone.View.extend({
     // ONLY receive change events for the specific property, 'currentSong'
     this.model.on('change:currentSong', function(model) {
       this.playerView.setSong(model.get('currentSong'));
+      this.render();
     }, this);
   },
 
   render: function() {
+    this.$el.children().detach();
+
+    var song = this.model.get('currentSong');
     return this.$el.html([
+      `<h1>${song.get('artist')} - ${song.get('title')}</h1>`,
       this.playerView.$el,
       this.libraryView.$el,
       this.queueView.$el
