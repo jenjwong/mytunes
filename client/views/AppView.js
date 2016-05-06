@@ -14,11 +14,22 @@ var AppView = Backbone.View.extend({
   },
 
   render: function() {
-    return this.$el.html([
-      this.playerView.$el,
-      this.libraryView.$el,
-      this.queueView.$el,
-    ]);
+    this.$el.html(`
+      <div class="container-fluid">
+        <div class="row">
+          <div id="library" class="col-md-8"></div>
+          <div id="queue" class="col-md-4"></div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div id="player"></div>
+      </footer>
+    `);
+    this.$el.find('#player').append(this.playerView.render());
+    this.$el.find('#library').append(this.libraryView.render());
+    this.$el.find('#queue').append(this.queueView.render());
+
+    return this.$el;
   }
 
 });
